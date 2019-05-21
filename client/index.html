@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                height:100%;
+            }    
+            html {
+                height: 100%;
+            }
+        </style>
+        
+    </head>
+    <body>
+
+    <h1>Hello World</h1>
+
+    <p>paragraph.</p>
+
+    <!-- <div id="feedbackApp-root"></div> -->
+    <script>
+        window.feedbackApp = {
+            widget: '151abbd4-3d08-4e71-9890-d0adba4649a4'
+        };
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "./index.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script");
+    </script>
+
+    <!-- Start of Emojics Code -->
+    <!-- <div id="emojics-root"></div>
+    <script>
+        window.emojicsOpts = {
+            widget: 'f57057c86b6ef1b0d2877858b807be'
+        };
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.emojics.com/dist/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "emojics-js");
+    </script> -->
+    <!-- End of Emojics Code -->
+    </body>
+</html>
