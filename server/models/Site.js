@@ -6,7 +6,6 @@ const siteSchema = new mongoose.Schema(
     siteUrl: {
       type: String,
       lowercase: true,
-      unique: true,
       required: [true, "can't be blank"],
       index: true
     },

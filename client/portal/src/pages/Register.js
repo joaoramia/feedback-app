@@ -25,7 +25,6 @@ class RegisterForm extends React.Component {
             this.props.history.push(`/panel`);
           })
           .catch(err => {
-            // console.log(err, err.message, err.status, JSON.stringify(err));
             this.setState({ error: err.data.message.message, loading: false });
           });
       }
