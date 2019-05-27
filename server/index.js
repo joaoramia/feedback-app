@@ -38,8 +38,8 @@ const isAuthenticated = (req, res, next) => {
         console.log('fail', decoded, err);
         return res.status(403).send({ message: 'Failed to authenticate token.' });
       } else {
-          console.log('success', decoded);
-          const {id} = decoded;
+        console.log('success', decoded);
+        const { id } = decoded;
         // if everything is good, save to request for use in other routes
         req.userId = id;
         next();
@@ -59,8 +59,10 @@ const isAuthenticated = (req, res, next) => {
  * Connect to MongoDB.
  */
 mongoose.connect(
-    `mongodb://${config.mongoDb.username}:${config.mongoDb.password}@ds259596.mlab.com:59596/feedback-app`,
-    { useNewUrlParser: true }
+  `mongodb://${config.mongoDb.username}:${
+    config.mongoDb.password
+  }@ds259596.mlab.com:59596/feedback-app`,
+  { useNewUrlParser: true }
 );
 mongoose.connection.on('error', err => {
   console.error(err);
@@ -90,28 +92,21 @@ app.disable('x-powered-by');
 /**
  * Primary app routes.
  */
-app.post('/signup', userController.postSignup);
-app.post('/login', userController.postLogin);
-app.get('/me', isAuthenticated, userController.getUser);
-app.put('/me', isAuthenticated, userController.updateUser);
-app.get(`/users/${config.adminToken}`, userController.getAllUsers);
+app.post('/api/signup', userController.postSignup);
+app.post('/api/login', userController.postLogin);
+app.get('/api/me', isAuthenticated, userController.getUser);
+app.put('/api/me', isAuthenticated, userController.updateUser);
+app.get(`/api/users/${config.adminToken}`, userController.getAllUsers);
 app.post('/api/feedback/answer', feedbackController.postAnswer);
 app.get('/api/feedback/me', isAuthenticated, feedbackController.getAnswers);
 
 // app.use(express.static(path.join(__dirname, '../client/build')));
-app.use(express.static(path.join(__dirname, '../client')));
+
+app.use(express.static(path.join(__dirname, '../client/portal/build')));
 
 app.get('*', (req, res) => {
-    res.render(path.join(__dirname, '../client/index.html'), {
-        baseHref: process.env.ROOT_PATH || ''
-    });
+  res.sendFile(path.join(__dirname, '../client/portal/build/index.html'));
 });
-
-// app.get('*', (req, res) => {
-//   res.render(path.join(__dirname, '../client/build/index.html'), {
-//     baseHref: process.env.ROOT_PATH || ''
-//   });
-// });
 
 /**
  * Error Handler.

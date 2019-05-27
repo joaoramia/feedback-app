@@ -4,11 +4,11 @@ import 'antd/dist/antd.css';
 import { Form, Icon, Input, Button, Alert, Card } from 'antd';
 
 // Internal imports
-import './Login.scss';
-import { login } from '../services/auth.service';
+import './Register.scss';
+import { register } from '../services/auth.service';
 import { setToken } from '../utils/auth';
 
-class LoginForm extends React.Component {
+class RegisterForm extends React.Component {
   state = {
     loading: false
   };
@@ -17,16 +17,16 @@ class LoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.setState({ error: false, loading: true });
-        login(values)
+        register(values)
           .then(res => {
-            this.setState({ loading: false });
             const { token } = res;
             setToken(token);
+            this.setState({ loading: false });
             this.props.history.push(`/panel`);
           })
           .catch(err => {
-            this.setState({ loading: false });
-            this.setState({ error: true });
+            // console.log(err, err.message, err.status, JSON.stringify(err));
+            this.setState({ error: err.data.message.message, loading: false });
           });
       }
     });
@@ -36,16 +36,36 @@ class LoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const { error, loading } = this.state;
     return (
-      <div id="login-container">
-        <Card id="login">
-          <Form onSubmit={this.handleSubmit} className="login-form">
-            <h2>Login</h2>
+      <div id="register-container">
+        <Card id="register">
+          <Form onSubmit={this.handleSubmit} className="register-form">
+            <h2>Register</h2>
+            <Form.Item>
+              {getFieldDecorator('siteUrl', {
+                rules: [{ required: true, message: 'Please input your website url!' }]
+              })(
+                <Input
+                  prefix={<Icon type="laptop" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  placeholder="www.yoursite.com"
+                />
+              )}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator('name', {
+                rules: [{ required: true, message: 'Please input your name!' }]
+              })(
+                <Input
+                  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  placeholder="Name"
+                />
+              )}
+            </Form.Item>
             <Form.Item>
               {getFieldDecorator('email', {
                 rules: [{ required: true, message: 'Please input your email!' }]
               })(
                 <Input
-                  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   placeholder="Email"
                 />
               )}
@@ -65,22 +85,14 @@ class LoginForm extends React.Component {
               <Button
                 type="primary"
                 htmlType="submit"
-                className="login-form-button"
+                className="register-form-button"
                 disabled={loading}
               >
-                {loading ? <Icon type="loading" /> : 'Log in'}
+                {loading ? <Icon type="loading" /> : 'Register'}
               </Button>
-              Or <Link to="/register">register now!</Link>
+              Or <Link to="/login">login now!</Link>
             </Form.Item>
-            {error ? (
-              <Alert
-                message="Invalid credentials"
-                description="Please check your email and password"
-                type="error"
-              />
-            ) : (
-              ''
-            )}
+            {error ? <Alert message="Error" description={error} type="error" /> : ''}
           </Form>
         </Card>
       </div>
@@ -88,4 +100,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export const WrappedLoginForm = Form.create({ name: 'normal_login' })(LoginForm);
+export const WrappedRegisterForm = Form.create({ name: 'normal_login' })(RegisterForm);
