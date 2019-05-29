@@ -103,6 +103,7 @@ app.get('/api/feedback/me', isAuthenticated, feedbackController.getAnswers);
 // app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use(express.static(path.join(__dirname, '../client/portal/build')));
+app.use('/cdn/', express.static(path.join(__dirname, '../client/lib')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/portal/build/index.html'));

@@ -114,7 +114,7 @@ export class HomePage extends React.Component {
             var js, fjs = d.getElementsByTagName(s)[0];
             js = d.createElement(s);
             js.id = id;
-            js.src = "./index.js";
+            js.src = "http://localhost:8080/cdn/index.js";
             fjs.parentNode.insertBefore(js, fjs);
         })(document, "script");
     </script>

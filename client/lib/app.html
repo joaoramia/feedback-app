@@ -2,19 +2,19 @@
 <html>
     <head>
         <link rel="stylesheet" href="styles.css">
-        <script src="app.js"></script>
     </head>
-    <body>
+    <body id="feedbackFrame">
         <div class="card">
-            <h1>Hello World</h1>
-            <button onclick="setStatus('like')">
-                Like
-            </button>
-            <button onclick="setStatus('dislike')">
-                Dislike
-            </button>
-        
-            <p>paragraph.</p>
+            <div id="buttons">
+                <button class="feedback-button" onclick="setStatus('like')">
+                        Like
+                    </button><br>
+                    <button class="feedback-button" onclick="setStatus('dislike')">
+                            Dislike
+                        </button>
+                    </div>
+            <div id="loader" style="display:none"></div>
         </div>
+        <script src="app.js"></script>
     </body>
 </html>

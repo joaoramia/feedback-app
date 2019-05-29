@@ -25,6 +25,7 @@ exports.postAnswer = async (req, res, next) => {
       res.status(403).send({ message: 'siteUrl does not match user' });
     }
   } catch (err) {
+    console.log(err);
     return res.status(403).send({ message: 'Something went wrong.' });
   }
 };

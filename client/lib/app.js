@@ -1,4 +1,10 @@
+const buttons = document.getElementById('buttons');
+const loader = document.getElementById('loader');
+const feedbackFrame = document.getElementById('feedbackFrame');
+
 function setStatus(type) {
+  loader.style.display = 'block';
+  buttons.style.display = 'none';
   const token = getToken();
   const Http = new XMLHttpRequest();
   const url = 'http://localhost:8080/api/feedback/answer';
@@ -11,7 +17,8 @@ function setStatus(type) {
 
   Http.onreadystatechange = e => {
     if (Http.readyState == 4) {
-      console.log('DONE - Hide iFrame form!', Http.responseText);
+      feedbackFrame.style.display = 'none';
+      loader.style.display = 'none';
     }
   };
 }
