@@ -21,5 +21,6 @@ window.onload = function(d) {
     pusher.style.position = 'relative';
     pusher.style.flex = 'none';
     pusher.style.overflow = 'hidden';
+    pusher.style.boxShadow = '0 1px 3px 2px rgba(0,0,0,.15)';
     document.body.insertBefore(pusher, document.body.firstChild);
   }
